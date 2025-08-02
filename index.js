@@ -5,6 +5,7 @@ const port = 3000;
 
 app.use(express.json());
 
+// Configuração do banco de dados Railway
 const dbConfig = {
   host: "switchback.proxy.rlwy.net",
   user: "root",
@@ -13,14 +14,13 @@ const dbConfig = {
   port: 16174,
 };
 
+// Endpoint de Webhook
 app.post("/webhook", async (req, res) => {
   const msg = req.body;
-
   console.log("📩 RECEBIDO:", JSON.stringify(msg, null, 2));
 
   try {
     const conn = await mysql.createConnection(dbConfig);
-
     await conn.execute(
       `INSERT INTO HELPDESKINFORMACOES (
         isStatusReply,
@@ -74,7 +74,6 @@ app.post("/webhook", async (req, res) => {
         msg.text?.message || null,
       ]
     );
-
     await conn.end();
     console.log("✅ Dados salvos com sucesso no banco.");
     res.sendStatus(200);
@@ -84,6 +83,7 @@ app.post("/webhook", async (req, res) => {
   }
 });
 
+// Endpoint para consulta
 app.get("/mensagens", async (req, res) => {
   try {
     const conn = await mysql.createConnection(dbConfig);
@@ -96,6 +96,7 @@ app.get("/mensagens", async (req, res) => {
   }
 });
 
+// Início do servidor
 app.listen(port, () => {
   console.log(`🚀 Webhook ativo na porta ${port}`);
 });
