@@ -69,12 +69,13 @@ app.get("/mensagens", async (req, res) => {
     await conn.end();
     res.json(rows);
   } catch (err) {
-    console.error("❌ Erro ao buscar mensagens:", err);
-    res.sendStatus(500);
-  }
+  console.error("❌ ERRO AO INSERIR NO MYSQL:", err.message, err.stack);
+  res.sendStatus(500);
+}
 });
 
 app.listen(port, () => {
   console.log(`🚀 Webhook rodando na porta ${port}`);
 });
+
 
