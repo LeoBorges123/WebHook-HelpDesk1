@@ -9,7 +9,7 @@ app.use(express.json());
 const dbConfig = {
   host: "turntable.proxy.rlwy.net",
   user: "root",
-  password: "QJPteMhHKtqfcJdGOvzCpVKJWZTRHAZY ",
+  password: "QJPteMhHKtqfcJdGOvzCpVKJWZTRHAZY",
   database: "railway",
   port: 16738
 };
@@ -64,3 +64,4 @@ app.post("/webhook", async (req, res) => {
 app.listen(port, () => {
   console.log(`🚀 Webhook rodando na porta ${port}`);
 });
+
